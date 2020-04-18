@@ -12,14 +12,6 @@
 
 #include "../includes/ft_printf.h"
 
-void		init_info(t_info *info)
-{
-	info->f = 0;
-	info->w = 0;
-	info->p = 0;
-	info->p_info = 0;
-}
-
 const char	*get_flags(t_info *info, const char *s)
 {
 	while (*s == 32 || *s == 35 || *s == 43 || *s == 45 || *s == 48)
@@ -54,17 +46,63 @@ const char	*get_modifier(t_info *info, const char *s)
 	return (s);
 }
 
-const char	*get_info(t_info *info, va_list *ap, const char *s)
+const char	*get_width(t_info *info, const char *s)
 {
-	init_info(info);
+	while (*s == 42 || *s == 45 || (*s > 47 && *s < 58))
+	{
+		info->f |= WIDTH;
+		info->w = (*s == 42) ? va_arg(info->ap, int) : info->w;
+		if (*s > 47 && *s < 58)
+		{
+			info->w = 0;
+			while (*s > 47 && *s < 58)
+			{
+				info->w = info->w * 10 + *s - 48;
+				s++;
+			}
+		}
+		else
+		{
+			info->f = (*s == 45 || info->w < 0) ? info->f | F_MINUS : info->f;
+			info->w = (info->w < 0) ? -info->w : info->w;
+			s++;
+		}
+	}
+	return (s);
+}
+
+const char	*get_precision(t_info *info, const char *s)
+{
+	int		sign;
+
+	sign = 0;
+	info->p = 0;
+	info->f |= PRECI;
+	if (*s == 45 || (*s > 47 && *s < 58))
+	{
+		sign = (*s == 45 && *(s++)) ? 1 : 0;
+		while (*s > 47 && *s < 58)
+		{
+			info->p = info->p * 10 + *s - 48;
+			s++;
+		}
+	}
+	else if (*s == 42 && *(s++))
+		info->p = va_arg(info->ap, int);
+	info->p = (info->p < 0 || sign) ? 0 : info->p;
+	return (s);
+}
+
+const char	*get_info(t_info *info, const char *s)
+{
 	while (*s == 32 || *s == 35 || *s == 42 || *s == 43 || *s == 45 || \
 		*s == 46 || (*s > 47 && *s < 58) || *s == 76 || *s == 104 || \
 		*s == 108 || *s == 122)
 	{
 		s = get_flags(info, s);
 		s = get_modifier(info, s);
-		s = get_width(info, ap, s);
-		s = get_precision(info, ap, s);
+		s = get_width(info, s);
+		s = (*s == 46) ? get_precision(info, s + 1) : s;
 	}
 	return (s);
 }

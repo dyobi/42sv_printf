@@ -25,10 +25,6 @@
 
 # define WIDTH 32
 # define PRECI 64
-# define P_STAR 1
-# define P_DIRECT 2
-# define P_ZERO 4
-# define P_USELESS 8
 
 // LENGTH_TYPE
 
@@ -44,6 +40,12 @@
 # define CT_HEXUP 8192
 # define CT_HEXDN 16384
 
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include <limits.h>
+
 typedef struct	s_dispatch_table
 {
 	char	specifier;
@@ -56,10 +58,16 @@ typedef struct	s_info
 	int		f;
 	int		w;
 	int		p;
-	int		p_info;
 	int		len;
 }				t_info;
 
 int				ft_printf(const char *s, ...);
+const char		*get_info(t_info *info, const char *s);
+
+
+//
+
+//void	ft_putchar(char c);
+//void	ft_bzero(void *s, size_t n);
 
 #endif

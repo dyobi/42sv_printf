@@ -12,16 +12,16 @@
 
 #include "../includes/ft_printf.h"
 
-int		ft_main(t_info *info, va_list *ap, const char *s)
+int		ft_main(t_info *info, const char *s)
 {
 	while (*s)
 	{
 		if (*s == '%')
 		{
-			s = get_info(info, ap, ++s);
-			if (!get_valid(info, ap, s))
+			s = get_info(info, ++s);
+			if (!get_valid(info, s))
 				break ;
-			info->len += get_conversion(info, ap, s);
+			info->len += get_conversion(info, s);
 		}
 		else
 		{
@@ -40,8 +40,8 @@ int		ft_printf(const char *s, ...)
 	int		res;
 
 	ft_bzero(&info, sizeof(info));
-	va_start(ap, s);
-	res = ft_main(&info, &ap, s);
-	va_end(ap);
+	va_start(info.ap, s);
+	res = ft_main(&info, s);
+	va_end(info.ap);
 	return (res);
 }
