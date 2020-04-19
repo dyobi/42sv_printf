@@ -37,8 +37,9 @@
 
 // CONVERSION_TYPE
 
-# define CT_HEXUP 8192
-# define CT_HEXDN 16384
+# define CT_U 8192
+# define CT_HEXUP 16384
+# define CT_HEXDN 32768
 
 # include <unistd.h>
 # include <stdlib.h>

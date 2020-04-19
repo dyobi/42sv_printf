@@ -14,6 +14,7 @@
 
 int		get_valid(t_info *info, const char *s)
 {
+	info->f = (*s == 117) ? info->f | CT_U : info->f;
 	info->f = (*s == 88) ? info->f | CT_HEXUP : info->f;
 	info->f = (*s == 120) ? info->f | CT_HEXDN : info->f;
 	return ((*s == 37 || *s == 88 || *s == 99 || *s == 100 || *s == 102 || \
@@ -29,7 +30,7 @@ int		ft_main(t_info *info, const char *s)
 			s = get_info(info, ++s);
 			if (!get_valid(info, s))
 				break ;
-			info->len += get_conversion(info, s);
+			get_conversion(info, s);
 		}
 		else
 		{
