@@ -41,6 +41,7 @@
 # define CT_PERCENT 16384
 # define CT_HEXUP 32768
 # define CT_HEXDN 65536
+# define CT_SIGNED 131072
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -65,6 +66,8 @@ typedef struct	s_info
 }				t_info;
 
 int				ft_printf(const char *s, ...);
+int64_t			get_arg_type(t_info *info);
+char			*max_itoa_base(uint64_t n, uint64_t base);
 const char		*get_info(t_info *info, const char *s);
 void			get_conversion(t_info *info, const char *s);
 
