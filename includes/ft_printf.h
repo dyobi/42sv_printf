@@ -46,11 +46,12 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <limits.h>
+# include "../libft/includes/libft.h"
 
 typedef struct	s_dispatch_table
 {
 	char	specifier;
-	int		(*ft)();
+	void	(*ft)();
 }				t_dt;
 
 typedef struct	s_info
@@ -64,11 +65,10 @@ typedef struct	s_info
 
 int				ft_printf(const char *s, ...);
 const char		*get_info(t_info *info, const char *s);
+void			get_conversion(t_info *info, const char *s);
 
+void			put_type_s(t_info  *info);
+void			put_type_c(t_info *info);
 
-//
-
-//void	ft_putchar(char c);
-//void	ft_bzero(void *s, size_t n);
 
 #endif

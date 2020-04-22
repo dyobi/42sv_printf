@@ -34,7 +34,7 @@ int		ft_main(t_info *info, const char *s)
 		}
 		else
 		{
-			ft_putchar(*s);
+			ft_putchar_fd(*s, 1);
 			info->len++;
 		}
 		s++;

@@ -15,6 +15,7 @@
 t_dt	g_dt[] =
 {
 	{99, put_type_c},
+	{115, put_type_s},
 	{0, NULL}
 };
 
@@ -25,7 +26,7 @@ int64_t	get_arg_type(t_info *info)
 	if (info->f & CT_U && info->f & LT_LL)
 		return (va_arg(info->ap, unsigned long long));
 	else if ((info->f & LT_L || info->f & LT_LL) && (info->f & CT_HEXUP || \
-		info->f & CT_HEXTDN))
+		info->f & CT_HEXDN))
 		return (va_arg(info->ap, unsigned long));
 	else if (info->f & LT_BIGL)
 		return (va_arg(info->ap, long double));
@@ -46,13 +47,13 @@ void	get_conversion(t_info *info, const char *s)
 	int		index;
 
 	index = 0;
-	while (*s && i < 2)
+	while (*s && index < 2)
 	{
-		if (*s == g_dt[i].specifier)
+		if (*s == g_dt[index].specifier)
 		{
-			g_dt[i].ft(info);
+			g_dt[index].ft(info);
 			break ;
 		}
-		i++;
+		index++;
 	}
 }
