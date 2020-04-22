@@ -14,9 +14,10 @@
 
 int		get_valid(t_info *info, const char *s)
 {
-	info->f = (*s == 117) ? info->f | CT_U : info->f;
-	info->f = (*s == 88) ? info->f | CT_HEXUP : info->f;
-	info->f = (*s == 120) ? info->f | CT_HEXDN : info->f;
+	info->f |= (*s == 37) ? CT_PERCENT : 0;
+	info->f |= (*s == 117) ? CT_U : 0;
+	info->f |= (*s == 88) ? CT_HEXUP : 0;
+	info->f |= (*s == 120) ? CT_HEXDN : 0;
 	return ((*s == 37 || *s == 88 || *s == 99 || *s == 100 || *s == 102 || \
 		*s == 105 || *s == 112 || *s == 115 || *s == 117 || *s == 120) ? 1 : 0);
 }

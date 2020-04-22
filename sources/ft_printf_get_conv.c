@@ -14,6 +14,7 @@
 
 t_dt	g_dt[] =
 {
+	{37, put_type_c},
 	{99, put_type_c},
 	{115, put_type_s},
 	{0, NULL}

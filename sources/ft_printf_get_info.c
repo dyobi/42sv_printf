@@ -16,11 +16,11 @@ const char	*get_flags(t_info *info, const char *s)
 {
 	while (*s == 32 || *s == 35 || *s == 43 || *s == 45 || *s == 48)
 	{
-		info->f = (*s == 32) ? info->f | F_SPACE : info->f;
-		info->f = (*s == 43) ? info->f | F_PLUS : info->f;
-		info->f = (*s == 45) ? info->f | F_MINUS : info->f;
-		info->f = (*s == 48) ? info->f | F_ZERO : info->f;
-		info->f = (*s == 35) ? info->f | F_HASH : info->f;
+		info->f |= (*s == 32) ? F_SPACE : 0;
+		info->f |= (*s == 43) ? F_PLUS : 0;
+		info->f |= (*s == 45) ? F_MINUS : 0;
+		info->f |= (*s == 48) ? F_ZERO : 0;
+		info->f |= (*s == 35) ? F_HASH : 0;
 		s++;
 	}
 	return (s);
@@ -63,7 +63,7 @@ const char	*get_width(t_info *info, const char *s)
 		}
 		else
 		{
-			info->f = (*s == 45 || info->w < 0) ? info->f | F_MINUS : info->f;
+			info->f |= (*s == 45 || info->w < 0) ? F_MINUS : 0;
 			info->w = (info->w < 0) ? -info->w : info->w;
 			s++;
 		}
