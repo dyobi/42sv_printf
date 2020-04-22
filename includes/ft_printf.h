@@ -67,10 +67,10 @@ typedef struct	s_info
 
 int				ft_printf(const char *s, ...);
 int64_t			get_arg_type(t_info *info);
-char			*max_itoa_base(uint64_t n, uint64_t base);
-const char		*get_info(t_info *info, const char *s);
 void			get_conversion(t_info *info, const char *s);
 void			put_tok(char c, int len);
+char			*max_itoa_base(uint64_t n, uint64_t base);
+const char		*get_info(t_info *info, const char *s);
 
 void			put_type_s(t_info  *info);
 void			put_type_c(t_info *info);
