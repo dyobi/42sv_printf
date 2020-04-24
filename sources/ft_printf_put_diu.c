@@ -48,6 +48,7 @@ void	print_diu(t_info *info, char *res, int len, int rest)
 {
 	(info->f & F_SPACE) ? put_tok(32, 1) : 0;
 	(!(info->f & F_MINUS) && !(info->f & F_ZERO)) ? put_tok(32, rest) : 0;
+	(!(info->f & F_MINUS) && info->f & F_ZERO) ? put_tok(48, rest) : 0;
 	(info->f & CT_SIGN) ? put_tok(45, 1) : 0;
 	(info->f & F_PLUS) ? put_tok(43, 1) : 0;
 	len -= (info->f & F_PLUS || info->f & CT_SIGN) ? 1 : 0;
@@ -66,10 +67,10 @@ void	put_type_di(t_info *info)
 	int		rest;
 
 	arg = get_arg_type(info);
-	info->f &= (info->f & PRECI) ? ~F_ZERO : 262143;
-	info->f &= (arg < 0) ? ~F_PLUS : 262143;
+	info->f &= (info->f & PRECI) ? ~F_ZERO : 524287;
+	info->f &= (arg < 0) ? ~F_PLUS : 524287;
 	info->f |= (arg < 0) ? CT_SIGN : 0;
-	info->f &= (info->f & F_PLUS || info->f & CT_SIGN) ? ~F_SPACE : 262143;
+	info->f &= (info->f & F_PLUS || info->f & CT_SIGN) ? ~F_SPACE : 524287;
 	if (!(res = max_itoa_base((arg < 0 ? -(uint64_t)arg : arg), 10)))
 		return ;
 	len = (info->p > ft_strlen(res)) ? info->p : ft_strlen(res);
@@ -92,7 +93,7 @@ void	put_type_u(t_info *info)
 	arg = !(info->f & LT_L) && info->f & LT_H ? (unsigned short)arg : arg;
 	arg = !(info->f & LT_L) && info->f & LT_HH ? (unsigned char)arg : arg;
 	info->f &= (~F_PLUS & ~F_SPACE);
-	info->f &= (info->f & PRECI) ? ~F_ZERO : 262143;
+	info->f &= (info->f & PRECI) ? ~F_ZERO : 524287;
 	if (!(res = max_itoa_base((info->f & LT_L || info->f & LT_LL) ? \
 		(uint64_t)arg : (unsigned)arg, 10)))
 		return ;

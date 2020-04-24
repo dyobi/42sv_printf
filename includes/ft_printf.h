@@ -38,10 +38,11 @@
 // CONVERSION_TYPE
 
 # define CT_U 8192
-# define CT_PERCENT 16384
-# define CT_HEXUP 32768
-# define CT_HEXDN 65536
-# define CT_SIGN 131072
+# define CT_P 16384
+# define CT_PERCENT 32768
+# define CT_HEXUP 65536
+# define CT_HEXDN 131072
+# define CT_SIGN 262144
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -76,5 +77,6 @@ void			put_type_s(t_info *info);
 void			put_type_c(t_info *info);
 void			put_type_di(t_info *info);
 void			put_type_u(t_info *info);
+void			put_type_xp(t_info *info);
 
 #endif

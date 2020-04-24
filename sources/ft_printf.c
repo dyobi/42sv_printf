@@ -16,6 +16,7 @@ int		get_valid(t_info *info, const char *s)
 {
 	info->f |= (*s == 37) ? CT_PERCENT : 0;
 	info->f |= (*s == 117) ? CT_U : 0;
+	info->f |= (*s == 112) ? CT_P : 0;
 	info->f |= (*s == 88) ? CT_HEXUP : 0;
 	info->f |= (*s == 120) ? CT_HEXDN : 0;
 	return ((*s == 37 || *s == 88 || *s == 99 || *s == 100 || *s == 102 || \
