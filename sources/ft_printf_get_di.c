@@ -44,7 +44,7 @@ char	*max_itoa_base(uint64_t n, uint64_t base)
 	return (res);
 }
 
-void	print_di(t_info *info, char *res, int len, int rest)
+void	print_diu(t_info *info, char *res, int len, int rest)
 {
 	(info->f & F_SPACE) ? put_tok(32, 1) : 0;
 	(!(info->f & F_MINUS) && !(info->f & F_ZERO)) ? put_tok(32, rest) : 0;
@@ -77,6 +77,28 @@ void	put_type_di(t_info *info)
 	len += (info->f & F_SPACE) ? 1 : 0;
 	rest = (info->f & WIDTH && info->w > len) ? info->w - len : 0;
 	info->len += (len + rest);
-	print_di(info, res, len, rest);
+	print_diu(info, res, len, rest);
+	free(res);
+}
+
+void	put_type_u(t_info *info)
+{
+	int64_t	arg;
+	char	*res;
+	int		len;
+	int		rest;
+
+	arg = get_arg_type(info);
+	arg = !(info->f & LT_L) && info->f & LT_H ? (unsigned short)arg : arg;
+	arg = !(info->f & LT_L) && info->f & LT_HH ? (unsigned char)arg : arg;
+	info->f &= (~F_PLUS & ~F_SPACE);
+	info->f &= (info->f & PRECI) ? ~F_ZERO : 262143;
+	if (!(res = max_itoa_base((info->f & LT_L || info->f & LT_LL) ? \
+		(uint64_t)arg : (unsigned)arg, 10)))
+		return ;
+	len = (info->p > ft_strlen(res)) ? info->p : ft_strlen(res);
+	rest = (info->f & WIDTH && info->w > len) ? info->w - len : 0;
+	info->len += (len + rest);
+	print_diu(info, res, len, rest);
 	free(res);
 }
