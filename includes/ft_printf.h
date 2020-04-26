@@ -75,6 +75,7 @@ const char		*get_info(t_info *info, const char *s);
 
 void			put_type_s(t_info *info);
 void			put_type_c(t_info *info);
+void			put_type_f(t_info *info);
 void			put_type_di(t_info *info);
 void			put_type_u(t_info *info);
 void			put_type_xp(t_info *info);

@@ -17,6 +17,7 @@ t_dt	g_dt[] =
 	{37, put_type_c},
 	{99, put_type_c},
 	{115, put_type_s},
+	{102, put_type_f},
 	{100, put_type_di},
 	{105, put_type_di},
 	{117, put_type_u},
@@ -54,7 +55,7 @@ void	get_conversion(t_info *info, const char *s)
 	int		index;
 
 	index = 0;
-	while (*s && index < 9)
+	while (*s && index < 10)
 	{
 		if (*s == g_dt[index].specifier)
 		{
