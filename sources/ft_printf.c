@@ -46,7 +46,6 @@ int		ft_main(t_info *info, const char *s)
 
 int		ft_printf(const char *s, ...)
 {
-	va_list	ap;
 	t_info	info;
 	int		res;
 

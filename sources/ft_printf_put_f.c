@@ -27,7 +27,7 @@ char	*get_char_f(t_info *info, char *left, char *right)
 	if (info->p)
 	{
 		res[index++] = 46;
-		tmp = (ft_strlen(right) > info->p) ? 1 : 0;
+		tmp = ((int)ft_strlen(right) > info->p) ? 1 : 0;
 		while (right[tmp])
 			res[index++] = right[tmp++];
 		while (tmp++ < info->p)
@@ -50,15 +50,15 @@ char	*get_type_f(t_info *info, long double arg)
 		decimal *= 10;
 	decimal = (decimal + 5) / 10;
 	right = max_itoa_base((uint64_t)decimal, 10);
-	left = max_itoa_base((uint64_t)((ft_strlen(right) > info->p && info->p) || \
-		(!(info->p) && right[0] == 49) ? arg + 1 : arg), 10);
+	left = max_itoa_base((uint64_t)(((int)ft_strlen(right) > info->p && \
+		info->p) || (!(info->p) && right[0] == 49) ? arg + 1 : arg), 10);
 	res = get_char_f(info, left, right);
 	free(left);
 	free(right);
 	return (res);
 }
 
-void	print_f(t_info *info, char *res, int len, int rest)
+void	print_f(t_info *info, char *res, int rest)
 {
 	(info->f & F_SPACE) ? put_tok(32, 1) : 0;
 	(!(info->f & F_MINUS) && !(info->f & F_ZERO)) ? put_tok(32, rest) : 0;
@@ -89,6 +89,6 @@ void	put_type_f(t_info *info)
 	len += (info->f & CT_SIGN || info->f & F_PLUS || info->f & F_SPACE) ? 1 : 0;
 	rest = (info->f & WIDTH && info->w > len) ? info->w - len : 0;
 	info->len += (len + rest);
-	print_f(info, res, len, rest);
+	print_f(info, res, rest);
 	free(res);
 }

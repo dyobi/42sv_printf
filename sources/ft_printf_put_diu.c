@@ -53,7 +53,7 @@ void	print_diu(t_info *info, char *res, int len, int rest)
 	(info->f & F_PLUS) ? put_tok(43, 1) : 0;
 	len -= (info->f & F_PLUS || info->f & CT_SIGN) ? 1 : 0;
 	len -= (info->f & F_SPACE) ? 1 : 0;
-	(info->p > ft_strlen(res)) ? put_tok(48, len - ft_strlen(res)) : 0;
+	(info->p > (int)ft_strlen(res)) ? put_tok(48, len - ft_strlen(res)) : 0;
 	while (*res)
 		ft_putchar_fd(*(res++), 1);
 	(info->f & F_MINUS) ? put_tok(32, rest) : 0;
@@ -73,7 +73,7 @@ void	put_type_di(t_info *info)
 	info->f &= (info->f & F_PLUS || info->f & CT_SIGN) ? ~F_SPACE : 524287;
 	if (!(res = max_itoa_base((arg < 0 ? -(uint64_t)arg : arg), 10)))
 		return ;
-	len = (info->p > ft_strlen(res)) ? info->p : ft_strlen(res);
+	len = (info->p > (int)ft_strlen(res)) ? info->p : (int)ft_strlen(res);
 	len += (info->f & F_PLUS || info->f & CT_SIGN) ? 1 : 0;
 	len += (info->f & F_SPACE) ? 1 : 0;
 	rest = (info->f & WIDTH && info->w > len) ? info->w - len : 0;
@@ -97,7 +97,7 @@ void	put_type_u(t_info *info)
 	if (!(res = max_itoa_base((info->f & LT_L || info->f & LT_LL) ? \
 		(uint64_t)arg : (unsigned)arg, 10)))
 		return ;
-	len = (info->p > ft_strlen(res)) ? info->p : ft_strlen(res);
+	len = (info->p > (int)ft_strlen(res)) ? info->p : (int)ft_strlen(res);
 	rest = (info->f & WIDTH && info->w > len) ? info->w - len : 0;
 	info->len += (len + rest);
 	print_diu(info, res, len, rest);
